@@ -1,3 +1,4 @@
+/* Escreva um programa que verifique se um número é positivo, negativo ou zero e imprima uma mensagem correspondente.*/
 const n1 = 10
 const n2 = -30
 
