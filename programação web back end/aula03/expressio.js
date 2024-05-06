@@ -1,10 +1,11 @@
 /* utilizando-se das expressões de função, faça um programa que calcule a area de  circulo (dica: const pi = Math.PI )  */
 
-let circulo = function expression() {
-    if( A = π )
-     return circulo - resultando   
-} 
+let circulo = function() {
+    let radio = 5
+    let area = Math.PI * radio * radio
+    return area
+}
 
-let cicurlo = 
-let resultando = (cicurlo)
-console.log(resultando)
+let resultado = circulo()
+
+console.log(resultado)
