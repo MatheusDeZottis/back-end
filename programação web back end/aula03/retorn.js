@@ -9,4 +9,6 @@ function soma(a = 0, b = 0){
          
 }
 let resultado = soma(5, 60)
+
 console.log(resultado)
+
