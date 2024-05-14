@@ -1,5 +1,6 @@
 const http = require('http');
-const host = 'localhost';
+const { url } = require('inspector');
+const host = 'localhost'
 const port = 3000;
 const botao = 'console.log("to no front")'
 
@@ -16,6 +17,16 @@ const resposta = `
 
 const requestListener = function (req, res) {
     console.log("Chegou uma request!");
+    if (requestUrl.pathname === '/teste') {
+        console.log('Este é um teste');
+    } else if (requestUrl.pathname === '/professor') {
+        console.log('Este é um professor');
+    } else if (requestUrl.pathname === '/aluno') {
+        console.log('Este é um aluno');
+    } else {
+        console.log('Rota não encontrada');
+    }
+    
     res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
     res.end(resposta);
 };
