@@ -1,38 +1,44 @@
-const http = require('http');
-const { url } = require('inspector');
-const host = 'localhost'
+const http = require("http")
+
+const host = "localhost"
 const port = 3000;
-const botao = 'console.log("to no front")'
+const resposta = `Minha Pagina`
 
-const resposta = `
-<html>
-<head>
-    <title>Exemplo Client-Side</title>
-</head>
-<body>
-    <button id="meuBotao">Clique Aqui</button>
-    <script>${botao}</script>
-</body>
-</html>`;
-
-const requestListener = function (req, res) {
-    console.log("Chegou uma request!");
-    if (requestUrl.pathname === '/teste') {
-        console.log('Este é um teste');
-    } else if (requestUrl.pathname === '/professor') {
-        console.log('Este é um professor');
-    } else if (requestUrl.pathname === '/aluno') {
-        console.log('Este é um aluno');
-    } else {
-        console.log('Rota não encontrada');
-    }
-    
-    res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
-    res.end(resposta);
+const rotaTeste = function (method, res) {
+  res.end('Este é um teste')
 };
 
-const server = http.createServer(requestListener);
+const rotaProfessor = function (method, res) {
+  res.end("Este é um professor")
+};
 
-server.listen(port, host, () =>{
-    console.log(`Servidor rodando em http://${host}:${port}/`);
-});
+const rotaAluno = function (method, res) {
+  return res.end('Este é um aluno')
+};
+
+const routes = function (url, method, res) {
+    res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+  
+    if (url == "/teste") {
+    return rotaTeste(method, res)
+  } else if (url == "/professor") {
+    rotaProfessor(method, res)
+  } else if (url == "/aluno") {
+    rotaAluno(method, res)
+  } else {
+    res.end("Ola mundo")
+  }
+};
+const requestListener = function (req, res) {
+  const { method, url } = req
+  console.log(`chegou uma requisicao no backend no path ${url}`)
+
+  routes(url, method, res)
+};
+
+const server = http.createServer()
+server.on("request", requestListener)
+
+server.listen(port, host, () => {
+  console.log(`Servidor rodando em http://${host}:${port}/`)
+})
